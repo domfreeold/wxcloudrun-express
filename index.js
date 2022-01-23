@@ -2,8 +2,6 @@ const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const { init: initDB, Counter } = require("./db");
-
 const logger = morgan("tiny");
 
 const app = express();
@@ -13,24 +11,12 @@ app.use(cors());
 app.use(logger);
 
 // 首页
-app.get("/", async (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
-});
 
-// 更新计数
-app.post("/api/count", async (req, res) => {
-  const { action } = req.body;
-  if (action === "inc") {
-    await Counter.create();
-  } else if (action === "clear") {
-    await Counter.destroy({
-      truncate: true,
-    });
-  }
-  res.send({
-    code: 0,
-    data: await Counter.count(),
-  });
+app.get("/shareTo.html", async (req, res) => {
+  res.sendFile(path.join(__dirname, "shareTo.html"));
+});
+app.get("1613599999.txt", async (req, res) => {
+  res.sendFile(path.join(__dirname, "1613599999.txt"));
 });
 
 // 获取计数
@@ -52,7 +38,6 @@ app.get("/api/wx_openid", async (req, res) => {
 const port = process.env.PORT || 80;
 
 async function bootstrap() {
-  await initDB();
   app.listen(port, () => {
     console.log("启动成功", port);
   });
