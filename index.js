@@ -15,7 +15,7 @@ app.use(logger);
 app.get("/shareTo.html", async (req, res) => {
   res.sendFile(path.join(__dirname, "shareTo.html"));
 });
-app.get("1613599999.txt", async (req, res) => {
+app.get("/1613599999.txt", async (req, res) => {
   res.sendFile(path.join(__dirname, "1613599999.txt"));
 });
 
